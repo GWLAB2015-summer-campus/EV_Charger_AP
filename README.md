@@ -78,7 +78,7 @@ The elements must be set to be the same in the SECC and EVCC, except for the len
 |Element type          |1               |0x01           |Fixed if SECC                                                                                       |
 |Energy Transfer type  |8               |0x01 ~ 0x0F    |bit 0 - AC support <br /> bit 1 - DC support <br /> bit 2 - WPT support <br /> bit 3 - ACD support  |
 |Country Code          |2               |               |Two character country code ( ISO 3166-1 )                                                           |
-|Operator ID           |3               |               |If no operator ID, the value shall be set to 0x2D2D2D ("---")                                       |
+|Operator ID           |3               |               |If no operator ID, the value set to 0x2D2D2D ("---")                                       |
 |Charging site ID      |5               |               |Unique identifier of the CS. It is numerical not UTF-8 string                                       |
 |Additional Information|0 ~ 255         |UTF-8 String   |see Additional Information section                                                                  |
 
@@ -98,12 +98,12 @@ Because EVs need to find compatible CS, they compare the Elergy Transfer Type (E
 ```
 <ETT>:<parameter>=<value>:<parameter>=<value>,<value>|<ETT>:etc.
 ```
-- \<ETT\>                 Energy Transfer type ( AC, DC, WPT, ACD )
-- \<parameter\>, \<value\>  defined in Parameters
-- : (0x3A)               separate ETT and parameters
-- = (0x3D)               separate parameters from its values
-- , (0x2C)               separate multiple values
-- | (0x7C)               one per ETT
+- `<ETT>`                 Energy Transfer type ( AC, DC, WPT, ACD )
+- `<parameter>, <value>`  defined in Parameters
+- `:` (0x3A)               separate ETT and parameters
+- `=` (0x3D)               separate parameters from its values
+- `,` (0x2C)              separate multiple values
+- `|` (0x7C)               one per ETT
 
 #### Parameters
 
