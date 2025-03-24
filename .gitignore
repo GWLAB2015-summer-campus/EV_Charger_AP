@@ -1,0 +1,7 @@
+.DS_STORE
+
+__pycache__
+*/__pycache__
+
+list.txt
+scan_result.txt
