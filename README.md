@@ -2,8 +2,7 @@
 
 ## Overview
 
-Charging GUI tool for EV based on ISO 15118-8. The program scan AP and connect AP.
-When EV connected AP, the program parse SECC data based on ISO 15118-8. 
+The objective of this project is to develop a graphical user interface (GUI) that can be utilized in an electric vehicle (EV) charging scenario in accordance with the standards outlined in ISO 15118-8. The process entails scanning the EV, establishing a connection with the SECC, and subsequently receiving and parsing the data. The GUI enables users to perform scanning operations on the SECC through tactile interaction. Subsequent to establishing a connection, users can access comprehensive information regarding the AP and the SECC, in addition to the program debug log.
 
 ## Environment
 
