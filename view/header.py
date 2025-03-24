@@ -1,6 +1,6 @@
 import tkinter as tk
 from const import SIZE, COLOR
-from component import Button, Label
+from component import Button
 from view.authenticate import Authenticate
 
 class Header(tk.Frame):

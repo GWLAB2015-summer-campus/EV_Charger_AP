@@ -1,5 +1,5 @@
 import tkinter as tk
-from const import SIZE, COLOR
+from const import COLOR
 
 class Container(tk.Frame):
     def __init__(self, *args, **kwargs):

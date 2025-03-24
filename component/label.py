@@ -1,5 +1,5 @@
 import tkinter as tk
-from const import SIZE, COLOR, FONT
+from const import COLOR
 
 class Label(tk.Label):
     def __init__(self, *args, **kwargs):

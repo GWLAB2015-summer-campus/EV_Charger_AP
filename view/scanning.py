@@ -1,4 +1,3 @@
-import tkinter as tk
 from component import Container, Label
 from const import SIZE, FONT, COLOR
 

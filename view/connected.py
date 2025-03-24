@@ -2,7 +2,6 @@ import tkinter as tk
 from component import Container, Label
 from const import SIZE, FONT, COLOR
 from models import SECC, AP
-from logger import logging
 
 class ConnectedContainer(Container):
     def __init__(self, parent, secc = SECC(), ap = AP()):

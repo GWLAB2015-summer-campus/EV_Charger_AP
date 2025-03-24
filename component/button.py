@@ -1,5 +1,5 @@
 import tkinter as tk
-from const import SIZE, COLOR, FONT
+from const import COLOR, FONT
 
 class Button(tk.Button):
     def __init__(self, *args, **kwargs):

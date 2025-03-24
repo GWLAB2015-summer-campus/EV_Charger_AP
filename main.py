@@ -1,6 +1,6 @@
 from tkinter import Tk
 from view import LogView, ScanningContainer, Header
-from logger import init_logview, logging
+from logger import init_logview
 from const import SIZE, COLOR
 from actions import scan
 

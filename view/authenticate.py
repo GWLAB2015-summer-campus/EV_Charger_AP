@@ -1,7 +1,6 @@
 import tkinter as tk
 from const import SIZE, COLOR, FONT
 from component import Label
-from logger import logging
 
 STATE_DICT = {
     "No Authenticated" : {

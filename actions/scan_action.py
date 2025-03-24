@@ -3,7 +3,7 @@ import asyncio
 from view import ConnectedContainer
 from const import SIZE
 from actions.auth_action import authenticate
-from models import SECC, SECC_parser, AP
+from models import SECC_parser, AP
 from wifi_scanner import scanning_and_connect
 
 async def async_scan(root, header, scanningView):
