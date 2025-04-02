@@ -2,26 +2,25 @@ from tkinter import Tk
 from view import LogView, ScanningContainer, Header
 from logger import init_logview
 from const import SIZE, COLOR
-from actions import scan
+from actions import scan, authenticate
 
 def test():
     from iso15118.evcc.main import run
     run()
 
 def _init_app():
-    global is_fullscreen
     root = Tk()
     root.geometry(f"{SIZE['SCREEN.W']}x{SIZE['SCREEN.H']}")
     root.configure(background=COLOR["BLACK1"])
     root.attributes("-fullscreen", True)
-    root.bind("<f>", lambda event: root.attributes("-fullscreen", not root.attributes("-fullscreen")))
+    root.bind("<f>", lambda x : root.attributes("-fullscreen", not root.attributes("-fullscreen")))
     root.bind("<q>", lambda x : root.quit())
 
     logview = LogView(root)
     init_logview(logview)
     logview.place(
         x=SIZE["DEFUALT_PADDING"] * 2 + SIZE["CONTAINER.W"], 
-        y=0, 
+        y=SIZE["DEFUALT_PADDING"], 
         width=SIZE["LOGVIEW.W"], 
         height=SIZE["SCREEN.H"])
 
@@ -34,10 +33,14 @@ def _init_app():
     )
 
     scanningContainer = ScanningContainer(root)
-    header.ScanButton.bind("<Button-1>", lambda x : scan(root, header, scanningContainer))
-    header.ScanButton.disable()
+    #header.ScanButton.bind("<Button-1>", lambda x : scan(root, header, scanningContainer))
+    header.ScanButton.bind("<Button-1>", lambda x : root.attributes("-fullscreen", not root.attributes("-fullscreen")))
+
+    #header.ScanButton.disable()
     header.AuthButton.enable()
-    header.AuthButton.bind("<Button-1>", lambda x : test())
+    #header.AuthButton.bind("<Button-1>", lambda x : root.quit())
+    header.AuthButton.bind("<Button-1>", lambda x : authenticate(root, header, logview.Authenticate))
+
     scanningContainer.place(
         x=SIZE["DEFUALT_PADDING"],
         y=SIZE["DEFUALT_PADDING"]*2+SIZE["HEADER.H"],
@@ -49,3 +52,4 @@ def _init_app():
 
 if __name__ == '__main__':
     _init_app()
+    # test()
