@@ -1,21 +1,26 @@
 import tkinter as tk
 from component import Label
 from const import SIZE, COLOR, FONT
+from view.authenticate import Authenticate
 
 class LogView(tk.Frame):
-    def __init__(self, parent, w=SIZE["LOGVIEW.W"], h=SIZE["LOGVIEW.H"]):
+    def __init__(self, parent, w=SIZE["LOGVIEW.W"], h=SIZE["CONTAINER.H"]):
         tk.Frame.__init__(self, parent, bg=COLOR["BLACK1"])
 
-        self.Title = Label(self, text="Debug Log", anchor="sw", font=FONT["H3"])
-        title_h = SIZE["HEADER.H"] + SIZE["DEFUALT_PADDING"]
-        self.Title.place(x=0, y=0, width=w, height=title_h)
+        auth_h = int(SIZE["HEADER.H"] * 0.6)
+        self.Authenticate = Authenticate(self, w=w)
+        self.Authenticate.place(x=0, y=0, width=w, height=auth_h)
+
+        self.Title = Label(self, text="Debug Log", anchor="sw", font=FONT["H4"])
+        title_h = SIZE["HEADER.H"] - auth_h - int(SIZE["DEFUALT_PADDING"] // 2)
+        self.Title.place(x=0, y=auth_h + SIZE["DEFUALT_PADDING"], width=w, height=title_h)
 
         self.LogFrame = tk.Frame(self, bg=COLOR["BLACK2"])
         self.LogFrame.place(
             x=0, 
-            y=title_h + SIZE["DEFUALT_PADDING"],
+            y=SIZE["HEADER.H"] + SIZE["DEFUALT_PADDING"],
             width=w,
-            height=SIZE["SCREEN.H"] - title_h - SIZE["DEFUALT_PADDING"]*2)
+            height=SIZE["CONTAINER.H"])
 
         self.LogBox = tk.Text(self.LogFrame, 
             bg=COLOR["BLACK2"], 
@@ -25,7 +30,7 @@ class LogView(tk.Frame):
             state=tk.DISABLED)
 
         self.LogBox.place(x=10, 
-            y=10, 
+            y=10,
             width=w-20, 
             height=SIZE["SCREEN.H"] - title_h - SIZE["DEFUALT_PADDING"]*2 - 20)
 
