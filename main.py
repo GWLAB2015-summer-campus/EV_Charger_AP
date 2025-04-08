@@ -33,13 +33,7 @@ def _init_app():
     )
 
     scanningContainer = ScanningContainer(root)
-    #header.ScanButton.bind("<Button-1>", lambda x : scan(root, header, scanningContainer))
-    header.ScanButton.bind("<Button-1>", lambda x : root.attributes("-fullscreen", not root.attributes("-fullscreen")))
-
-    #header.ScanButton.disable()
-    header.AuthButton.enable()
-    #header.AuthButton.bind("<Button-1>", lambda x : root.quit())
-    header.AuthButton.bind("<Button-1>", lambda x : authenticate(root, header, logview.Authenticate))
+    header.ScanButton.bind("<Button-1>", lambda x : scan(root, header, scanningContainer))
 
     scanningContainer.place(
         x=SIZE["DEFUALT_PADDING"],

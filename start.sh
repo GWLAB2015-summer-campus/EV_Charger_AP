@@ -1,3 +1,3 @@
 #!/bin/bash
-poetry run python3 main.py
+sudo poetry run python main.py
 read reply
