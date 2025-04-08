@@ -2,11 +2,7 @@ from tkinter import Tk
 from view import LogView, ScanningContainer, Header
 from logger import init_logview
 from const import SIZE, COLOR
-from actions import scan, authenticate
-
-def test():
-    from iso15118.evcc.main import run
-    run()
+from actions import scan
 
 def _init_app():
     root = Tk()
@@ -46,4 +42,3 @@ def _init_app():
 
 if __name__ == '__main__':
     _init_app()
-    # test()
