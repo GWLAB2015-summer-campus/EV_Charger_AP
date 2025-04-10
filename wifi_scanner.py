@@ -1,5 +1,5 @@
 import subprocess
-from logger import logging
+import log_helper
 import environs, os
 
 def scanning_and_connect():
@@ -14,7 +14,7 @@ def scanning_and_connect():
             interface = env.str("NETWORK_INTERFACE", default="eth0")
 
             result = subprocess.run(f'bash ./evcc.sh {interface}', capture_output=True, text=True, shell=True)
-            logging(result.stdout)
+            log_helper.log(result.stdout)
             result = result.stdout.split("\n")
             add_network = result[-2].split(" ")[0]
             
@@ -28,10 +28,10 @@ def scanning_and_connect():
             else:
                 raise Exception("Need Retry")
         except Exception as e:
-            logging(e)
-            logging("retrying...")
+            log_helper.log(e)
+            log_helper.log("retrying...")
             retry += 1
-    logging("connect error")
+    log_helper.log("connect error")
     return None, None, None, None, None
 
 if __name__ == '__main__':

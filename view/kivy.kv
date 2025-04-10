@@ -1,0 +1,231 @@
+MDFloatLayout:
+    md_bg_color: self.theme_cls.backgroundColor
+
+    MDButton:
+        id: scan_button
+        style: "outlined"
+        theme_width: "Custom"
+        height: "80dp"
+        size_hint_x: .3
+        radius: "12dp"
+        pos: 10, (470 - self.height)
+
+        MDButtonText:
+            id: text
+            text: "Scan"
+            font_style: "Display"
+            role: "small"
+            pos_hint: {"center_x": .5, "center_y": .5}
+    
+    MDButton:
+        id: auth_button
+        disabled: True
+        style: "outlined"
+        theme_width: "Custom"
+        height: "80dp"
+        size_hint_x: .35
+        radius: "12dp"
+        pos: (20 + (self.width * .3 / .35)), (470 - self.height)
+
+        MDButtonText:
+            id: text
+            text: "Authenticate"
+            font_style: "Display"
+            role: "small"
+            pos_hint: {"center_x": .5, "center_y": .5}
+
+    MDScreen:
+        size_hint: None, None
+        width: 800 * 0.65 + 10
+        height: 450 - dp(80)
+        pos: 10, 10
+        radius: "12dp"
+        MDTabsSecondary:
+            id: tabs
+            allow_stretch: False
+            size_hint_y: None
+            height: dp(20)
+            pos: 0, 450 - dp(80) - self.height
+
+            MDDivider:
+
+            MDTabsCarousel:
+                id: related_content
+                size_hint_y: None
+                height: 440 - dp(120)
+
+    AuthenticateView:
+        id: auth_view
+        size_hint: None, None
+        width: 800 * 0.35 - 40
+        height: 460
+        pos: 790 - self.width, 10
+    
+    MDScreen:
+        id: loading
+        size_hint: 0, 0
+        width: 800 * 0.65 + 10
+        height: 450 - dp(80)
+        pos: 10, 10
+        radius: "12dp"
+        md_bg_color: (0.2, 0.2, 0.2, 0.5)
+
+        MDLabel:
+            id: loading_text
+            text: ""
+            halign: "center"
+            text_color: app.theme_cls.primaryColor
+            pos_hint: {"center_x": .5, "center_y": .5}
+            size_hint: 0.3, 0.3
+
+<AuthenticateView>:
+    AuthStatusView:
+        id: auth_status
+        size_hint: None, None
+        width: self.parent.width
+        height: "80dp"
+        pos: 790 - self.width, (470 - self.height) 
+    
+    LadderView:
+        size_hint: None, None
+        width: self.parent.width
+        height: 450 - dp(80)
+        pos: 790 - self.width, 10
+
+<AuthStatusView>:
+    md_bg_color: app.theme_cls.backgroundColor
+    radius: "12dp"
+    FloatLayout:
+        id: status
+        size_hint: None, 1
+        width: self.parent.height*0.4
+        canvas:
+            Color:
+                rgb: (0.85, 0.85, 0.85, 1)
+            Ellipse:
+                pos: self.parent.x, self.parent.y + self.parent.height / 2 - 13
+                size: 26, 26
+    MDLabel:
+        text: "No Authenticated"
+        pos: self.parent.x + self.parent.height*0.4 + 10, self.parent.y
+        size_hint: None, 1
+        width: self.parent.width - self.parent.height*0.4 - 10
+        halign: "center"
+
+<LadderView>:
+    md_bg_color: app.theme_cls.backgroundColor
+    radius: "12dp"
+    canvas.before:
+        Color:
+            rgba: app.theme_cls.outlineColor 
+        Line:
+            width: 1.5
+            rounded_rectangle: (self.x, self.y, self.width, self.height, dp(12))
+
+<APView>:
+    size_hint: 1, 0.95
+    radius: "12dp"
+    canvas.before:
+        Color:
+            rgba: app.theme_cls.outlineColor
+        Line:
+            width: 1.5
+            rounded_rectangle: (self.x, self.y, self.width, self.height, dp(12))
+    MDScrollView:
+        size_hint: 0.95, 0.95
+        pos_hint: {"center_x": .5, "center_y": .5}
+        do_scroll_x: False
+        do_scroll_y: True
+        MDBoxLayout:
+            orientation: "vertical"
+            adaptive_height: True
+            MDLabel:
+                id: ssid
+                text: ""
+                size_hint_y: None
+                height: self.texture_size[1]
+            MDLabel:
+                id: bss
+                text: ""
+                size_hint_y: None
+                height: self.texture_size[1]
+            MDLabel:
+                id: signal
+                text: ""
+                size_hint_y: None
+                height: self.texture_size[1]
+            MDLabel:
+                id: frequency
+                text: ""
+                size_hint_y: None
+                height: self.texture_size[1]
+
+<EVSEView>:
+    size_hint: 1, 0.95
+    radius: "12dp"
+    canvas.before:
+        Color:
+            rgba: app.theme_cls.outlineColor
+        Line:
+            width: 1.5
+            rounded_rectangle: (self.x, self.y, self.width, self.height, dp(12))
+    MDScrollView:
+        size_hint: 0.95, 0.95
+        pos_hint: {"center_x": .5, "center_y": .5}
+        do_scroll_x: False
+        do_scroll_y: True
+        MDBoxLayout:
+            orientation: "vertical"
+            adaptive_height: True
+            MDLabel:
+                id: country_code
+                text: ""
+                size_hint_y: None
+                height: self.texture_size[1]
+            MDLabel:
+                id: operator_id
+                text: ""
+                size_hint_y: None
+                height: self.texture_size[1]
+            MDLabel:
+                id: charging_site_id
+                text: ""
+                size_hint_y: None
+                height: self.texture_size[1]
+
+<AuthView>:
+    size_hint: 1, 0.95
+    radius: "12dp"
+    canvas.before:
+        Color:
+            rgba: app.theme_cls.outlineColor
+        Line:
+            width: 1.5
+            rounded_rectangle: (self.x, self.y, self.width, self.height, dp(12))
+    MDScrollView:
+        size_hint: 0.95, 0.95
+        pos_hint: {"center_x": .5, "center_y": .5}
+        do_scroll_x: False
+        do_scroll_y: True
+        MDBoxLayout:
+            orientation: "vertical"
+            adaptive_height: True
+
+<DebugView>:
+    size_hint: 1, 0.95
+    radius: "12dp"
+    canvas.before:
+        Color:
+            rgba: app.theme_cls.outlineColor
+        Line:
+            width: 1.5
+            rounded_rectangle: (self.x, self.y, self.width, self.height, dp(12))
+    MDScrollView:
+        size_hint: 0.95, 0.95
+        pos_hint: {"center_x": .5, "center_y": .5}
+        do_scroll_x: False
+        do_scroll_y: True
+        MDBoxLayout:
+            id: log_list
+            orientation: "vertical"
+            adaptive_height: True

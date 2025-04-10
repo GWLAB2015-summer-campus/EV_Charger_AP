@@ -155,8 +155,8 @@ def SECC_parser(vse):
             ACD_support = (ett_field[-4] == '1')
         ),
         country_code=str(binascii.unhexlify(vse[18:22]))[1:].replace("'",""),
-        operator_id=int(vse[22:28], 16),
-        charging_site_id=int(vse[28:38], 16),
+        operator_id=str(int(vse[22:28], 16)),
+        charging_site_id=str(int(vse[28:38], 16)),
         additional_infomation=additional_info_parser(str(binascii.unhexlify(vse[38:]))[1:].replace("'",""))
     )
     return secc
