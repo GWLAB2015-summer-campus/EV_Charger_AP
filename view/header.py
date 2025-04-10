@@ -1,15 +1,14 @@
 import tkinter as tk
 from const import SIZE, COLOR
 from component import Button
-from view.authenticate import Authenticate
 
 class Header(tk.Frame):
     def __init__(self, parent, w=SIZE["CONTAINER.W"], h=SIZE["HEADER.H"]):
         tk.Frame.__init__(self, parent, bg=COLOR["BLACK1"])
         self.ScanButton = Button(self, text="Scan", anchor="center")
-        self.ScanButton.place(x=0, y=0, width=200, h=h)
+        btn_w = (SIZE["CONTAINER.W"] // 2) - (SIZE["DEFUALT_PADDING"] // 2)
+        auth_w = btn_w * 1.5
+        self.ScanButton.place(x=0, y=0, width=int(btn_w*0.8), h=h)
         self.AuthButton = Button(self, text="Authenticate", anchor="center")
         self.AuthButton.disable()
-        self.AuthButton.place(x=200 + SIZE["DEFUALT_PADDING"], y=0, width=200, h=h)
-        self.Authenticate = Authenticate(self)
-        self.Authenticate.place(x=SIZE["CONTAINER.W"] - 250 - SIZE["DOT.DIA"], y=0, width=250 + SIZE["DOT.DIA"], height=SIZE["HEADER.H"])
+        self.AuthButton.place(x=int(btn_w*0.8) + SIZE["DEFUALT_PADDING"], y=0, width=int(btn_w*1.2), h=h)

@@ -6,7 +6,7 @@ class Button(tk.Button):
         defaultKwargs = {
             "bg" : COLOR["BLACK2"],
             "fg" : COLOR["WHITE1"],
-            "font" : FONT["H3"],
+            "font" : FONT["H2"],
             "borderwidth" : 0,
             "highlightthickness" : 0
         }

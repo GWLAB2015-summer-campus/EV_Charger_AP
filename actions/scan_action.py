@@ -1,4 +1,4 @@
-from logger import logging
+from logger import logging, get_log_view
 import asyncio
 from view import ConnectedContainer
 from const import SIZE
@@ -35,7 +35,7 @@ async def async_scan(root, header, scanningView):
         )
         scanningView.place_forget()
 
-        header.AuthButton.bind("<Button-1>", lambda x : authenticate(root, header, header.Authenticate))
+        header.AuthButton.bind("<Button-1>", lambda x : authenticate(root, header, get_log_view().Authenticate))
         header.AuthButton.enable()
 
 def scan(root, header, scanningView):

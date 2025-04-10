@@ -83,14 +83,16 @@ echo -------------------------------------------
 addNetwork=`echo $(wpa_cli -i $1 add_network)`
 echo ${addNetwork}
 
-wpa_cli -i $1 set_network ${addNetwork} bssid "${bssidVal}"
+nmcli device wifi connect ${ssidVal} ifname $1
 
-wpa_cli -i $1 set_network ${addNetwork} ssid "\"$ssidVal\""
+# wpa_cli -i $1 set_network ${addNetwork} bssid "${bssidVal}"
 
-wpa_cli -i $1 set_network ${addNetwork} key_mgmt 'NONE'
+# wpa_cli -i $1 set_network ${addNetwork} ssid "\"$ssidVal\""
 
-wpa_cli -i $1 select_network ${addNetwork}
+# wpa_cli -i $1 set_network ${addNetwork} key_mgmt 'NONE'
 
-sysctl -p
+# wpa_cli -i $1 select_network ${addNetwork}
+
+# sysctl -p
 
 echo "${addNetwork} ${bssidVal} ${ssidVal} ${signalVal} ${freqVal} ${dataVal}"

@@ -6,3 +6,7 @@ def init_logview(view):
 
 def logging(value):
     _logView.logging(value)
+
+def get_log_view():
+    global _logView
+    return _logView

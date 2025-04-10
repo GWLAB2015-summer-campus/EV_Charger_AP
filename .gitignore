@@ -5,3 +5,5 @@ __pycache__
 
 list.txt
 scan_result.txt
+.env
+password.txt
