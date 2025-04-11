@@ -92,7 +92,7 @@ class MainApp(AsyncApp):
                 
         self.debug_dialog = MDDialog(
             MDDialogHeadlineText(
-                text="Set backup account",
+                text="Debug Menu",
                 halign="left",
             ),
             MDDialogContentContainer(
@@ -171,6 +171,7 @@ class MainApp(AsyncApp):
 def init_app():
     app = MainApp()
     Window.size = SIZE.SCREEN.SIZE
+    Window.fullscreen = True
     return app
 
 if __name__ == "__main__":
