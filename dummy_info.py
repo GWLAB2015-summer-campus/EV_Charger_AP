@@ -19,11 +19,35 @@ dummy_secc = SECC(
     charging_site_id="211295614005",
     additional_infomation=[
         _ADD_INFO(
+            ett="AC",
+            parameter={
+                "C" : [1],
+                "M" : [1],
+                "S" : ["C", "B", "I"]
+            }
+        ),
+        _ADD_INFO(
             ett="DC",
             parameter={
-                "C": ["2"],
-                "M": ["1"],
-                "S": ["A", "B"]
+                "C" : [1],
+                "M" : [2],
+                "S" : ["C", "H", "B", "I"]
+            }
+        ),
+        _ADD_INFO(
+            ett="WPT",
+            parameter={
+                "Z" : [1],
+                "F" : ["A1"],
+                "A" : ["P"],
+                "P" : ["P"],
+                "G" : ["P"]
+            }
+        ),
+        _ADD_INFO(
+            ett="ACD",
+            parameter={
+                "ID" : ["EVIDsdfgdsfsdfsdf"]
             }
         )
     ]

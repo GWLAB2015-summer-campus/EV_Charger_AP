@@ -142,6 +142,7 @@ class MainApp(AsyncApp):
                         text=tab["title"],
                     ),
                     id=tab["title"],
+                    width = 120,
                 )
             )
             item_view = tab["lander"](

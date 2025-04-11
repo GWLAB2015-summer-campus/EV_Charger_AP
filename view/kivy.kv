@@ -122,6 +122,11 @@ MDFloatLayout:
             width: 1.5
             rounded_rectangle: (self.x, self.y, self.width, self.height, dp(12))
 
+<EmptyScreen>:
+    size_hint: 1, 1
+    md_bg_color: app.theme_cls.backgroundColor
+    radius: "12dp"
+
 <APView>:
     size_hint: 1, 0.95
     radius: "12dp"
@@ -139,26 +144,67 @@ MDFloatLayout:
         MDBoxLayout:
             orientation: "vertical"
             adaptive_height: True
-            MDLabel:
-                id: ssid
-                text: ""
-                size_hint_y: None
-                height: self.texture_size[1]
-            MDLabel:
-                id: bss
-                text: ""
-                size_hint_y: None
-                height: self.texture_size[1]
-            MDLabel:
-                id: signal
-                text: ""
-                size_hint_y: None
-                height: self.texture_size[1]
-            MDLabel:
-                id: frequency
-                text: ""
-                size_hint_y: None
-                height: self.texture_size[1]
+            MDBoxLayout:
+                orientation: "vertical"
+                adaptive_height: True
+                padding: 0, 20, 0, 15
+                MDLabel:
+                    id: ssid
+                    text: ""
+                    font_style: "Headline"
+                    role: "large"
+                    size_hint_y: None
+                    height: self.texture_size[1]
+            MDDivider:
+            MDBoxLayout:
+                orientation: "horizontal"
+                adaptive_height: True
+                padding: 0, 12, 0, 8
+                MDLabel:
+                    text: "BSS"
+                    font_style: "Title"
+                    size_hint: .3, None
+                    height: self.texture_size[1]
+                MDLabel:
+                    id: bss
+                    text: ""
+                    font_style: "Title"
+                    size_hint: .7, None
+                    height: self.texture_size[1]
+            MDDivider:
+            MDBoxLayout:
+                orientation: "horizontal"
+                adaptive_height: True
+                padding: 0, 12, 0, 8
+                MDLabel:
+                    text: "Frequency"
+                    font_style: "Title"
+                    size_hint: .3, None
+                    height: self.texture_size[1]
+                MDLabel:
+                    id: frequency
+                    text: ""
+                    font_style: "Title"
+                    size_hint: .7, None
+                    height: self.texture_size[1]
+            MDDivider:
+            MDBoxLayout:
+                orientation: "horizontal"
+                adaptive_height: True
+                padding: 0, 12, 0, 8
+                MDLabel:
+                    text: "Signal"
+                    font_style: "Title"
+                    size_hint: .3, None
+                    height: self.texture_size[1]
+                MDLabel:
+                    id: signal
+                    text: ""
+                    font_style: "Title"
+                    size_hint: .7, None
+                    height: self.texture_size[1]
+    EmptyScreen:
+        id: empty
 
 <EVSEView>:
     size_hint: 1, 0.95
@@ -175,23 +221,79 @@ MDFloatLayout:
         do_scroll_x: False
         do_scroll_y: True
         MDBoxLayout:
+            id: contents
             orientation: "vertical"
             adaptive_height: True
-            MDLabel:
-                id: country_code
-                text: ""
-                size_hint_y: None
-                height: self.texture_size[1]
-            MDLabel:
-                id: operator_id
-                text: ""
-                size_hint_y: None
-                height: self.texture_size[1]
-            MDLabel:
-                id: charging_site_id
-                text: ""
-                size_hint_y: None
-                height: self.texture_size[1]
+            MDBoxLayout:
+                orientation: "vertical"
+                adaptive_height: True
+                MDBoxLayout:
+                    orientation: "horizontal"
+                    adaptive_height: True
+                    MDLabel:
+                        text: "Country"
+                        font_style: "Title"
+                        size_hint: .3, None
+                        height: self.texture_size[1]
+                    MDLabel:
+                        id: country_code
+                        text: ""
+                        font_style: "Title"
+                        size_hint: .7, None
+                        height: self.texture_size[1]
+                MDBoxLayout:
+                    orientation: "horizontal"
+                    adaptive_height: True
+                    MDLabel:
+                        text: "Operator"
+                        font_style: "Title"
+                        size_hint: .3, None
+                        height: self.texture_size[1]
+                    MDLabel:
+                        id: operator_id
+                        text: ""
+                        font_style: "Title"
+                        size_hint: .7, None
+                        height: self.texture_size[1]
+                MDBoxLayout:
+                    orientation: "horizontal"
+                    adaptive_height: True
+                    MDLabel:
+                        text: "Charging Site"
+                        font_style: "Title"
+                        size_hint: .3, None
+                        height: self.texture_size[1]
+                    MDLabel:
+                        id: charging_site_id
+                        text: ""
+                        font_style: "Title"
+                        size_hint: .7, None
+                        height: self.texture_size[1]
+    EmptyScreen:
+        id: empty
+
+<ChipBox>:
+    orientation: "vertical"
+    adaptive_height: True
+    padding: 0, 10, 0, 20
+    MDLabel:
+        text: self.parent.title
+        font_style: "Title"
+        size_hint: 1, None
+        height: self.texture_size[1]
+    MDStackLayout:
+        id: chip_list
+        size_hint: 1, None
+        adaptive_height: True
+        padding: 15, 15, 15, 5
+        radius: "12dp"
+        spacing: 10
+        canvas.before:
+            Color:
+                rgba: app.theme_cls.outlineColor
+            Line:
+                width: 1
+                rounded_rectangle: (self.x, self.y, self.width, self.height, dp(12))
 
 <AuthView>:
     size_hint: 1, 0.95

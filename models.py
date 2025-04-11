@@ -66,9 +66,7 @@ class SECC(_SECC, _WithFormatter):
                     formatted = f"charging connector type {value[0]}"
                 elif key == 'M':
                     if ett == 'AC':
-                        formatted.value.append(
-                            f"{value[0]} phase charging"
-                        )
+                        formatted = f"{value[0]} phase charging"
                     elif ett == 'DC':
                         modes = [
                             "charging on the core pins",
@@ -76,7 +74,7 @@ class SECC(_SECC, _WithFormatter):
                             "charging using the core pins of a configuration EE, FF connector",
                             "charging using a dedicated DC coupler"
                         ]
-                        formatted = modes[int(value[0])+1]
+                        formatted = modes[int(value[0])-1]
                 elif key == 'S':
                     services = {
                         'C' : "charging",
@@ -84,8 +82,8 @@ class SECC(_SECC, _WithFormatter):
                         'B' : "Bidirectional power transfer",
                         'I' : "Island operation"
                     }
-                    print(value)
-                    formatted = ','.join([services[v] for v in value])
+                    for v in value:
+                        result[ett].append(services[v])
                 elif key == 'Z':
                     formatted = f"Gap class Z{value[0]}"
                 elif key == 'P':
