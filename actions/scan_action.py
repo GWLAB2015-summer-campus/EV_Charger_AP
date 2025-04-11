@@ -1,5 +1,4 @@
 import log_helper
-from actions.auth_action import authenticate
 from models import SECC_parser, AP
 from wifi_scanner import scanning_and_connect
 
@@ -28,11 +27,6 @@ async def async_scan(app):
         app.tab_items["AP"].set_ap(ap)
         app.tab_items["EVSE"].set_evse(secc)
 
-        app.root.ids.auth_button.bind(on_press=lambda x: authenticate(
-            app.root,
-            app.root.ids.related_content,
-            app.root.ids.auth_view,
-        ))
         app.root.ids.tabs.disabled = False
         app.root.ids.auth_button.disabled = False
 

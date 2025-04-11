@@ -110,6 +110,7 @@ class AuthStatusView(MDFloatLayout):
                     26, 26
                 )
             )
+        self.add_widget(
             MDLabel(
                 text=status["text"],
                 pos=(
@@ -121,3 +122,4 @@ class AuthStatusView(MDFloatLayout):
                 width=self.width - self.height*0.4 - 10,
                 halign="center"
             )
+        )

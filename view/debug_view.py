@@ -10,3 +10,5 @@ class DebugView(MDFloatLayout):
                 adaptive_height=True,
             )
         )
+        if self.ids.log_list.height > self.height:
+            self.ids.log_list.parent.scroll_y = 0

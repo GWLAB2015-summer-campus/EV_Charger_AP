@@ -9,7 +9,7 @@ from kivymd.uix.tab.tab import MDTabsItemText
 from const import SIZE
 import view
 import log_helper
-from actions import scan
+from actions import scan, authenticate
 
 TabItems = [
         {
@@ -52,9 +52,19 @@ class MainApp(AsyncApp):
                 self.enter_debug = 0
 
     def _on_scan_btn_click(self, *args):
-        self.add_async_task(
-            scan(self)
-        )
+        if not self.root.ids.scan_button.disabled:
+            self.add_async_task(
+                scan(self)
+            )
+
+    def _on_auth_btn_click(self, *args):
+        if not self.root.ids.auth_button.disabled:
+            self.add_async_task(
+                authenticate(self), False
+            )
+
+    def _on_config_change(self, *largs):
+        return super()._on_config_change(*largs)
         
     def on_start(self):
         self.root.ids.tabs.bind(on_tab_switch=self.on_tab_switch)
@@ -80,6 +90,7 @@ class MainApp(AsyncApp):
             )
         self.root.ids.tabs.switch_tab(text=TabItems[0]["title"])
         self.root.ids.scan_button.bind(on_release=self._on_scan_btn_click)
+        self.root.ids.auth_button.bind(on_release=self._on_auth_btn_click)
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
