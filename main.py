@@ -1,15 +1,15 @@
+import asyncio
+
 from kivy.lang import Builder
-from kivymd.app import MDApp
+from async_app import AsyncApp
 from kivy.core.window import Window
 from kivymd.uix.tab import MDTabsItemSecondary
 from kivymd.uix.tab.tab import MDTabsItemText
-from kivy.metrics import dp
 
 from const import SIZE
 import view
 import log_helper
 from actions import scan
-from dummy_info import dummy_ap, dummy_secc
 
 TabItems = [
         {
@@ -30,23 +30,10 @@ TabItems = [
         },
     ]
 
-class MainApp(MDApp):
+class MainApp(AsyncApp):
     tab_items = {}
 
     enter_debug = 0
-
-    def start_loading(self):
-        self.root.ids.loading.size_hint = (None, None)
-        self.root.ids.tabs.disabled = True
-        self.root.ids.loading_text.text = "Loading..."
-        self.root.refresh()
-
-    def stop_loading(self):
-        self.root.ids.loading.size_hint = (
-            0, 0
-        )
-        self.root.ids.tabs.disabled = False
-        self.root.ids.loading_text.text = ""
 
     def on_tab_switch(self, *args):
         current_tab = args[0].get_current_tab()
@@ -63,6 +50,11 @@ class MainApp(MDApp):
                     self.enter_debug += 1
             else:
                 self.enter_debug = 0
+
+    def _on_scan_btn_click(self, *args):
+        self.add_async_task(
+            scan(self)
+        )
         
     def on_start(self):
         self.root.ids.tabs.bind(on_tab_switch=self.on_tab_switch)
@@ -87,12 +79,10 @@ class MainApp(MDApp):
                 item_view
             )
         self.root.ids.tabs.switch_tab(text=TabItems[0]["title"])
-        self.root.ids.scan_button.bind(on_press=lambda x : self.on_scan_click())
+        self.root.ids.scan_button.bind(on_release=self._on_scan_btn_click)
 
-    def on_scan_click(self):
-        if not self.root.ids.scan_button.disabled:
-            self.start_loading()
-            scan(self)
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
 
     def build(self):
         self.theme_cls.theme_style = "Dark"
@@ -102,7 +92,10 @@ class MainApp(MDApp):
 def init_app():
     app = MainApp()
     Window.size = SIZE.SCREEN.SIZE
-    app.run()
+    return app
 
 if __name__ == "__main__":
-    init_app()
+    app = init_app()
+    loop = asyncio.get_event_loop()
+    loop.run_until_complete(app.app_func())
+    loop.close()

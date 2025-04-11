@@ -1,8 +1,9 @@
 import subprocess
 import log_helper
 import environs, os
+import asyncio
 
-def scanning_and_connect():
+async def scanning_and_connect():
     MAX_RETRY = 5
     retry = 0
     while retry < MAX_RETRY:
@@ -13,9 +14,15 @@ def scanning_and_connect():
 
             interface = env.str("NETWORK_INTERFACE", default="eth0")
 
-            result = subprocess.run(f'bash ./evcc.sh {interface}', capture_output=True, text=True, shell=True)
-            log_helper.log(result.stdout)
-            result = result.stdout.split("\n")
+            subp_shell = await asyncio.create_subprocess_shell(
+                f'bash ./evcc.sh {interface}',
+                stdout=subprocess.PIPE,
+                stderr=subprocess.PIPE
+            )
+            result = await subp_shell.communicate()
+            result = result[0].decode("utf-8")
+            log_helper.log(result)
+            result = result.split("\n")
             add_network = result[-2].split(" ")[0]
             
             if add_network:
@@ -31,6 +38,7 @@ def scanning_and_connect():
             log_helper.log(e)
             log_helper.log("retrying...")
             retry += 1
+            await asyncio.sleep(0.5)
     log_helper.log("connect error")
     return None, None, None, None, None
 

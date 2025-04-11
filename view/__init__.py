@@ -6,3 +6,4 @@ from view.debug_view import DebugView
 from view.ap_view import APView
 from view.evse_view import EVSEView
 from view.auth_view import AuthView
+from view.loading_view import LoadingView
