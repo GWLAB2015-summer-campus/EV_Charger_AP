@@ -3,8 +3,18 @@ import asyncio
 from kivy.lang import Builder
 from async_app import AsyncApp
 from kivy.core.window import Window
+from kivymd.uix.divider import MDDivider
 from kivymd.uix.tab import MDTabsItemSecondary
 from kivymd.uix.tab.tab import MDTabsItemText
+from kivymd.uix.dialog import (
+    MDDialog,
+    MDDialogHeadlineText,
+    MDDialogContentContainer,
+)
+from kivymd.uix.list import (
+    MDListItem,
+    MDListItemSupportingText,
+)
 
 from const import SIZE
 import view
@@ -35,6 +45,63 @@ class MainApp(AsyncApp):
 
     enter_debug = 0
 
+    def set_fullscreen(self, fullscreen):
+        log_helper.log(f"Set fullscreen to {fullscreen}")
+        Window.fullscreen = fullscreen
+        self.debug_dialog.dismiss()
+        self.debug_dialog = None
+
+    def quit(self):
+        log_helper.log("Quitting application")
+        self.stop()
+
+    debug_dialog = None
+    def init_debug_Menu(self):
+        debug_menu = [
+            {
+                "title" : "Fullscreen Mode",
+                "option" : not Window.fullscreen,
+                "func" : lambda x: self.set_fullscreen(True)
+            },
+            {
+                "title" : "Window Mode",
+                "option" : Window.fullscreen,
+                "func" : lambda x: self.set_fullscreen(False)
+            },
+            {
+                "title" : "Exit",
+                "option" : True,
+                "func" : lambda x: self.stop()
+            }
+        ]
+        content_list = []
+        for menu in debug_menu:
+            if menu["option"]:
+                content_list.append(
+                    MDListItem(
+                        MDListItemSupportingText(
+                            text=menu["title"],
+                        ),
+                        on_release=menu["func"],
+                        theme_bg_color="Custom",
+                        md_bg_color=self.theme_cls.transparentColor,
+                    )
+                )
+                content_list.append(MDDivider())
+        content_list.remove(content_list[-1])
+                
+        self.debug_dialog = MDDialog(
+            MDDialogHeadlineText(
+                text="Set backup account",
+                halign="left",
+            ),
+            MDDialogContentContainer(
+                *content_list,
+                orientation="vertical",
+            ),
+        )
+
+
     def on_tab_switch(self, *args):
         current_tab = args[0].get_current_tab()
         target_tab = args[1]
@@ -42,11 +109,11 @@ class MainApp(AsyncApp):
         if current_tab and current_tab == target_tab:
             if target_tab.id == "Debug":
                 if self.enter_debug >= 5:
-                    log_helper.log("Debug mode activated")
-                    Window.fullscreen = not Window.fullscreen
+                    if not self.debug_dialog:
+                        self.init_debug_Menu()
+                    self.debug_dialog.open()
                     self.enter_debug = 0
                 else:
-                    log_helper.log(f"Tab {5 - self.enter_debug} attempts to enter Debug mode")
                     self.enter_debug += 1
             else:
                 self.enter_debug = 0

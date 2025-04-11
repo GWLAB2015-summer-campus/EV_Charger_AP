@@ -9,9 +9,9 @@ async def async_scan(app):
     bss, ssid, signal, freq, vse = await scanning_and_connect()
 
     if vse is None:
-        # scanningView.is_error("Connect Error", "AP Not Found")
         app.root.ids.scan_button.disabled = False
         app.root.ids.tabs.disabled = False
+        await log_helper.snack_error("Failed to Connect AP")
     else:
         secc = SECC_parser(vse)
         ap = AP(
