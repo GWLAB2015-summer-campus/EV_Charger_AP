@@ -1,5 +1,3 @@
-from kivymd.uix.snackbar import MDSnackbar, MDSnackbarText
-
 _log_view = None
 
 def set_log_view(log_view):
@@ -16,6 +14,7 @@ def log(obj):
         log_view.logging(str(obj))
 
 async def snack_error(message):
+    from kivymd.uix.snackbar import MDSnackbar, MDSnackbarText
     MDSnackbar(
         MDSnackbarText(
             text=message,
