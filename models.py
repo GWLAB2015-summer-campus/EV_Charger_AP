@@ -158,3 +158,31 @@ def SECC_parser(vse):
         additional_infomation=additional_info_parser(str(binascii.unhexlify(vse[38:]))[1:].replace("'",""))
     )
     return secc
+
+@dataclass
+class _Private_Key:
+    x: int = 0
+    y: int = 0
+    curve: str = ""
+    private_value: int = 0
+
+@dataclass
+class _Cert:
+    cn: str = ""
+    o: str = ""
+    ou: str = ""
+
+@dataclass
+class _CertChain:
+    leaf: _Cert = field(default_factory=lambda : _Cert())
+    sub1: _Cert = field(default_factory=lambda : _Cert())
+    sub2: _Cert = field(default_factory=lambda : _Cert())
+
+@dataclass
+class _Certificate:
+    private_key: _Private_Key|None = field(default=None)
+    contract_cert: _CertChain|None = field(default=None)
+    cps_cert: _CertChain|None = field(default=None)
+
+class Certificate(_Certificate, _WithFormatter):
+    pass

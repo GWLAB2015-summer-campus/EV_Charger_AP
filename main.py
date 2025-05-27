@@ -153,6 +153,9 @@ class MainApp(AsyncApp):
             if tab["title"] == "Debug":
                 log_helper.set_log_view(item_view)
 
+            if tab["title"] == "Authentication":
+                item_view.set_auth(None)
+
             self.root.ids.related_content.add_widget(
                 item_view
             )

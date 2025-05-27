@@ -312,7 +312,111 @@ MDFloatLayout:
         MDBoxLayout:
             orientation: "vertical"
             adaptive_height: True
-
+            MDLabel:
+                text: "Installed Contract Certificate"
+                font_style: "Headline"
+                role: "large"
+                size_hint_y: None
+                height: self.texture_size[1]
+            MDBoxLayout:
+                orientation: "horizontal"
+                adaptive_height: True
+                padding: 15, 12, 0, 8
+                MDLabel:
+                    text: "Common Name(CN)"
+                    font_style: "Title"
+                    size_hint: .5, None
+                    height: self.texture_size[1]
+                MDLabel:
+                    id: contract_cn
+                    text: ""
+                    font_style: "Title"
+                    size_hint: .5, None
+                    height: self.texture_size[1]
+            MDBoxLayout:
+                orientation: "horizontal"
+                adaptive_height: True
+                padding: 15, 12, 0, 8
+                MDLabel:
+                    text: "Organization(O)"
+                    font_style: "Title"
+                    size_hint: .5, None
+                    height: self.texture_size[1]
+                MDLabel:
+                    id: contract_o
+                    text: ""
+                    font_style: "Title"
+                    size_hint: .5, None
+                    height: self.texture_size[1]
+            MDBoxLayout:
+                orientation: "horizontal"
+                adaptive_height: True
+                padding: 15, 12, 0, 8
+                MDLabel:
+                    text: "Organization Unit(OU)"
+                    font_style: "Title"
+                    size_hint: .5, None
+                    height: self.texture_size[1]
+                MDLabel:
+                    id: contract_ou
+                    text: ""
+                    font_style: "Title"
+                    size_hint: .5, None
+                    height: self.texture_size[1]
+            MDLabel:
+                text: "Installed CPS Certificate"
+                font_style: "Headline"
+                role: "large"
+                size_hint_y: None
+                height: self.texture_size[1]
+            MDBoxLayout:
+                orientation: "horizontal"
+                adaptive_height: True
+                padding: 15, 12, 0, 8
+                MDLabel:
+                    text: "Common Name(CN)"
+                    font_style: "Title"
+                    size_hint: .5, None
+                    height: self.texture_size[1]
+                MDLabel:
+                    id: cps_cn
+                    text: ""
+                    font_style: "Title"
+                    size_hint: .5, None
+                    height: self.texture_size[1]
+            MDBoxLayout:
+                orientation: "horizontal"
+                adaptive_height: True
+                padding: 15, 12, 0, 8
+                MDLabel:
+                    text: "Organization(O)"
+                    font_style: "Title"
+                    size_hint: .5, None
+                    height: self.texture_size[1]
+                MDLabel:
+                    id: cps_o
+                    text: ""
+                    font_style: "Title"
+                    size_hint: .5, None
+                    height: self.texture_size[1]
+            MDBoxLayout:
+                orientation: "horizontal"
+                adaptive_height: True
+                padding: 15, 12, 0, 8
+                MDLabel:
+                    text: "Organization Unit(OU)"
+                    font_style: "Title"
+                    size_hint: .5, None
+                    height: self.texture_size[1]
+                MDLabel:
+                    id: cps_ou
+                    text: ""
+                    font_style: "Title"
+                    size_hint: .5, None
+                    height: self.texture_size[1]
+    EmptyScreen:
+        id: auth_empty
+    
 <DebugView>:
     size_hint: 1, 0.95
     radius: "12dp"

@@ -11,7 +11,7 @@ async def async_authenticate(app):
     _auth_view.ids.auth_status.change_status("Authenticating")
 
     # Need to Add Auth Logic
-    result = await main()
+    result = await main(app)
     
     if result:
         _auth_view.ids.auth_status.change_status("Authenticated")

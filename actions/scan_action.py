@@ -27,6 +27,9 @@ async def async_scan(app):
         app.tab_items["AP"].set_ap(ap)
         app.tab_items["EVSE"].set_evse(secc)
 
+        from iso15118.evcc.main import update_cert
+        update_cert(app)
+
         app.root.ids.tabs.disabled = False
         app.root.ids.auth_button.disabled = False
 
