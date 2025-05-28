@@ -1,20 +1,17 @@
-from logger import logging, get_log_view
-import asyncio
-from view import ConnectedContainer
-from const import SIZE
-from actions.auth_action import authenticate
+import log_helper
 from models import SECC_parser, AP
 from wifi_scanner import scanning_and_connect
 
-async def async_scan(root, header, scanningView):
-    header.ScanButton.disable()
-    scanningView.is_scanning()
+async def async_scan(app):
+    app.root.ids.scan_button.disabled = True
+    app.root.ids.tabs.disabled = True
     
-    bss, ssid, signal, freq, vse = scanning_and_connect()
+    bss, ssid, signal, freq, vse = await scanning_and_connect()
 
     if vse is None:
-        scanningView.is_error("Connect Error", "AP Not Found")
-        header.ScanButton.enable()
+        app.root.ids.scan_button.disabled = False
+        app.root.ids.tabs.disabled = False
+        await log_helper.snack_error("Failed to Connect AP")
     else:
         secc = SECC_parser(vse)
         ap = AP(
@@ -24,19 +21,17 @@ async def async_scan(root, header, scanningView):
             signal=signal
         )
 
-        logging(secc)
+        log_helper.log(ap)
+        log_helper.log(secc)
 
-        connectedContainer = ConnectedContainer(root, secc, ap)
-        connectedContainer.place(
-            x=SIZE["DEFUALT_PADDING"],
-            y=SIZE["DEFUALT_PADDING"]*2+SIZE["HEADER.H"],
-            width=SIZE["CONTAINER.W"],
-            height=SIZE["CONTAINER.H"]
-        )
-        scanningView.place_forget()
+        app.tab_items["AP"].set_ap(ap)
+        app.tab_items["EVSE"].set_evse(secc)
 
-        header.AuthButton.bind("<Button-1>", lambda x : authenticate(root, header, get_log_view().Authenticate))
-        header.AuthButton.enable()
+        from iso15118.evcc.main import update_cert
+        update_cert(app)
 
-def scan(root, header, scanningView):
-    asyncio.run(async_scan(root, header, scanningView))
+        app.root.ids.tabs.disabled = False
+        app.root.ids.auth_button.disabled = False
+
+async def scan(app):
+    await async_scan(app)

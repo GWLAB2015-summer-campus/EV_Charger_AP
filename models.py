@@ -66,9 +66,7 @@ class SECC(_SECC, _WithFormatter):
                     formatted = f"charging connector type {value[0]}"
                 elif key == 'M':
                     if ett == 'AC':
-                        formatted.value.append(
-                            f"{value[0]} phase charging"
-                        )
+                        formatted = f"{value[0]} phase charging"
                     elif ett == 'DC':
                         modes = [
                             "charging on the core pins",
@@ -76,7 +74,7 @@ class SECC(_SECC, _WithFormatter):
                             "charging using the core pins of a configuration EE, FF connector",
                             "charging using a dedicated DC coupler"
                         ]
-                        formatted = modes[int(value[0])+1]
+                        formatted = modes[int(value[0])-1]
                 elif key == 'S':
                     services = {
                         'C' : "charging",
@@ -84,8 +82,8 @@ class SECC(_SECC, _WithFormatter):
                         'B' : "Bidirectional power transfer",
                         'I' : "Island operation"
                     }
-                    print(value)
-                    formatted = ','.join([services[v] for v in value])
+                    for v in value:
+                        result[ett].append(services[v])
                 elif key == 'Z':
                     formatted = f"Gap class Z{value[0]}"
                 elif key == 'P':
@@ -155,8 +153,36 @@ def SECC_parser(vse):
             ACD_support = (ett_field[-4] == '1')
         ),
         country_code=str(binascii.unhexlify(vse[18:22]))[1:].replace("'",""),
-        operator_id=int(vse[22:28], 16),
-        charging_site_id=int(vse[28:38], 16),
+        operator_id=str(int(vse[22:28], 16)),
+        charging_site_id=str(int(vse[28:38], 16)),
         additional_infomation=additional_info_parser(str(binascii.unhexlify(vse[38:]))[1:].replace("'",""))
     )
     return secc
+
+@dataclass
+class _Private_Key:
+    x: int = 0
+    y: int = 0
+    curve: str = ""
+    private_value: int = 0
+
+@dataclass
+class _Cert:
+    cn: str = ""
+    o: str = ""
+    ou: str = ""
+
+@dataclass
+class _CertChain:
+    leaf: _Cert = field(default_factory=lambda : _Cert())
+    sub1: _Cert = field(default_factory=lambda : _Cert())
+    sub2: _Cert = field(default_factory=lambda : _Cert())
+
+@dataclass
+class _Certificate:
+    private_key: _Private_Key|None = field(default=None)
+    contract_cert: _CertChain|None = field(default=None)
+    cps_cert: _CertChain|None = field(default=None)
+
+class Certificate(_Certificate, _WithFormatter):
+    pass
